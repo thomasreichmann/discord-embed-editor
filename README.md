@@ -1,46 +1,69 @@
-# Getting Started with Create React App
+# Discord Bot
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This readme will be a temporary place to store my thoughts on the initial desing of the project
 
-## Available Scripts
+## Embed Portal
 
-In the project directory, you can run:
+Portal to manage and create the messages that will be in the discord guild
 
-### `yarn start`
+### Bot back-end architecture
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+-   Typescript app running on Node.JS and being hosted on Heroku/GCloud?
+    -   Discord.JS as the bot framework
+        -   Use the base from [Discord bot Template](https://github.com/thomasreichmann/discord-bot-template)
+            -   Add relevant commands to the template
+    -   express.JS as the web framework
+        -   Add an express side to the original bot template
+    -   firestore db as the data storage
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Portal front-end architecture
 
-### `yarn test`
+-   Typescript app using React as a web framework and hosted on firebase
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### User stories
 
-### `yarn build`
+Workflows that the user will follow to create, delete and edit embeds.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+##### create new message through the portal
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+-   click "create new message" in the portal
+    -   send a get request to the bot asking for the channels in the guild
+    -   select which channel to send the message to
+    -   fill out the title, content, color, footer, etc ...
+    -   click "confirm"
+        -   send the info as a post request to the bot's express back-end
+            -   receive the response indicating success/failure and containing the message ID
+                -   send the message ID and info to the firestore db
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+##### receive create message post from portal
 
-### `yarn eject`
+-   create a embed using the post info
+    -   send the embed to the channel that the post info channelID is referring to
+        -   take the resulting message ID and send it as a response to the post
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+##### edit message through the portal
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+-   get all messages from the firestore db
+    -   select which message to edit
+        -   edit in the modal the fields you are interested in
+        -   select "save"
+            -   send the message ID and new info as a post to the bot
+                -   receive the response indicating success/failure
+                    -   show dialog indicating the status
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+##### re-send the message through portal
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+-   get all messages from the firestore db
+    -   on the list containing all of the messages, find the one you are interested in and click "re-send"
+        -   send the message ID to the "re-send" endpoint
+            -   receive the response with the new message ID
+                -   store the new message ID in the firestore db
+                    -   show success dialog
 
-## Learn More
+##### delete the message through portal
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+-   get all messages from the firestore db
+    -   on the list containing all of the messages, find the one you are interested in and click "delete"
+        -   send the message ID to the "delete" endpoint
+            -   receive the response indicating successful/unsuccessful deletion
+                -   show success/failure dialog
