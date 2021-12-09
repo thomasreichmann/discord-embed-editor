@@ -15,11 +15,11 @@ function App() {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<div className='App'>
+			<div className="App">
 				<Routes>
-					<Route path='/' element={<Home />} />
-					<Route path='login' element={<Login />} />
-					<Route path='redirect' element={<Redirect />} />
+					<Route path="/" element={<Home />} />
+					<Route path="login" element={<Login />} />
+					<Route path="redirect" element={<Redirect />} />
 				</Routes>
 			</div>
 		</ThemeProvider>
