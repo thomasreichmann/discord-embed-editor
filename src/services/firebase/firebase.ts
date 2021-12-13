@@ -1,9 +1,10 @@
 import { initializeApp } from 'firebase/app';
-import { getFunctions, httpsCallable } from 'firebase/functions';
+import { getFunctions, httpsCallable, connectFunctionsEmulator } from 'firebase/functions';
 import firebaseConfig from './config';
 
 const app = initializeApp(firebaseConfig);
 const functions = getFunctions(app);
+connectFunctionsEmulator(functions, 'localhost', 5001);
 
 // Functions from firebase
 const generateToken = httpsCallable(functions, 'generateToken');
