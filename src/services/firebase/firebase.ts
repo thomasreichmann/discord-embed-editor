@@ -10,6 +10,6 @@ connectFunctionsEmulator(functions, 'localhost', 5001);
 const generateToken = httpsCallable(functions, 'generateToken');
 
 export async function requestToken(code: string) {
-	let response = await generateToken(code);
+	let response = await generateToken({ code });
 	return response;
 }
