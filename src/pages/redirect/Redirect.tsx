@@ -7,6 +7,15 @@ function Redirect() {
 	let [searchParams, setSearchParams] = useSearchParams();
 	let [token, setToken] = useState('');
 
+	let codeStyle = {
+		background: '#222222',
+		padding: '7px',
+		fontSize: '36px',
+		color: 'grey',
+		fontWeight: 400,
+		borderRadius: '15px',
+	};
+
 	let code = searchParams.get('code');
 
 	useEffect(() => {
@@ -26,21 +35,11 @@ function Redirect() {
 		<div>
 			<h1>REDIRECT</h1>
 			<h2>
-				CODE:{' '}
-				<span
-					style={{
-						background: '#222222',
-						padding: '7px',
-						fontSize: '36px',
-						color: 'grey',
-						fontWeight: 400,
-						borderRadius: '15px',
-					}}
-				>
-					{code}
-				</span>
+				CODE FROM URL: <span style={codeStyle}>{code}</span>
 			</h2>
-			<h2>RESPONSE: {token || 'Nao recebido ainda'}</h2>
+			<h2>
+				RESPONSE: <span style={codeStyle}>{token || 'Nao recebido ainda'}</span>
+			</h2>
 		</div>
 	);
 }
