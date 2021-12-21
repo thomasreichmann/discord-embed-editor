@@ -1,19 +1,22 @@
 import { useSearchParams } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import * as firebase from '../../services/firebase/firebase';
-import { useEffect, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 
 function Redirect() {
 	let [searchParams, setSearchParams] = useSearchParams();
 	let [token, setToken] = useState('');
 
-	let codeStyle = {
+	let codeStyle: CSSProperties = {
 		background: '#222222',
 		padding: '7px',
 		fontSize: '36px',
 		color: 'grey',
 		fontWeight: 400,
 		borderRadius: '15px',
+		display: 'flex',
+		overflowWrap: 'anywhere',
+		width: '1100px',
 	};
 
 	let code = searchParams.get('code');
@@ -28,7 +31,7 @@ function Redirect() {
 				setToken(res.data as string);
 			}
 		})();
-	});
+	}, []);
 
 	let auth = getAuth();
 	return (
