@@ -11,13 +11,22 @@ export const generateToken = functions.https.onCall(async (data, context) => {
 	let code = data.code;
 
 	try {
-		//TODO: attempt to use qs to create formdata
-		const form = new FormData();
-		form.append('client_id', discord.client_id);
-		form.append('client_secret', discord.client_secret);
-		form.append('redirect_uri', discord.redirect_uri);
-		form.append('code', code);
-		form.append('grant_type', 'authorization_code');
+		// TODO: clean up and better implement qs now that its proven that it works
+		let rawData = {
+			...discord,
+			grant_type: 'authorization_code',
+			code,
+		};
+
+		let form = querystring.stringify(rawData);
+
+		// const form = new FormData();
+		// form.append('client_id', discord.client_id);
+		// form.append('client_secret', discord.client_secret);
+		// form.append('redirect_uri', discord.redirect_uri);
+		// form.append('code', code);
+		// form.append('grant_type', 'authorization_code');
+
 		// let form = JSON.stringify({
 		// 	...discord,
 		// 	grant_type: 'authorization_code',
@@ -35,7 +44,7 @@ export const generateToken = functions.https.onCall(async (data, context) => {
 			method: 'POST',
 			body: form,
 			headers: {
-				'Content-Type': 'multipart/form-data',
+				'Content-Type': 'application/x-www-form-urlencoded',
 			},
 		});
 
