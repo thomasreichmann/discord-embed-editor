@@ -4,6 +4,8 @@ import firebaseConfig from './config';
 
 const app = initializeApp(firebaseConfig);
 const functions = getFunctions(app);
+
+// TODO: make this based on the current env (prod || dev)
 connectFunctionsEmulator(functions, 'localhost', 5001);
 
 // Functions from firebase

@@ -1,7 +1,4 @@
 import * as functions from 'firebase-functions';
-import axios from 'axios';
-import * as url from 'url';
-import * as FormData from 'form-data';
 import fetch from 'node-fetch';
 import * as querystring from 'qs';
 
@@ -12,6 +9,7 @@ export const generateToken = functions.https.onCall(async (data, context) => {
 
 	try {
 		// TODO: clean up and better implement qs now that its proven that it works
+		// TODO: create a single command to launch development enviroment
 		let rawData = {
 			...discord,
 			grant_type: 'authorization_code',
