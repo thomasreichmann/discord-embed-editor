@@ -25,9 +25,7 @@ function Redirect() {
 		// Async function
 		(async () => {
 			if (code) {
-				// TODO: Solve network error for current request
 				let res = await firebase.requestToken(code);
-				console.log(res);
 				setToken(res.data as string);
 			}
 		})();
