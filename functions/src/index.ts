@@ -8,39 +8,17 @@ export const generateToken = functions.https.onCall(async (data, context) => {
 	let code = data.code;
 
 	try {
-		// TODO: clean up and better implement qs now that its proven that it works
-		// TODO: create a single command to launch development enviroment
 		let rawData = {
 			...discord,
 			grant_type: 'authorization_code',
 			code,
 		};
 
-		let form = querystring.stringify(rawData);
-
-		// const form = new FormData();
-		// form.append('client_id', discord.client_id);
-		// form.append('client_secret', discord.client_secret);
-		// form.append('redirect_uri', discord.redirect_uri);
-		// form.append('code', code);
-		// form.append('grant_type', 'authorization_code');
-
-		// let form = JSON.stringify({
-		// 	...discord,
-		// 	grant_type: 'authorization_code',
-		// 	code,
-		// });
-		// let info = {
-		// 	...discord,
-		// 	grant_type: 'authorization_code',
-		// 	code,
-		// };
-
-		// let params = new URLSearchParams(info);
+		let qs = querystring.stringify(rawData);
 
 		let response = await fetch('https://discordapp.com/api/oauth2/token', {
 			method: 'POST',
-			body: form,
+			body: qs,
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
