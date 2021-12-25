@@ -4,7 +4,7 @@ import * as firebase from '../../services/firebase/firebase';
 import { CSSProperties, useEffect, useState } from 'react';
 
 function Redirect() {
-	let [searchParams, setSearchParams] = useSearchParams();
+	let [searchParams] = useSearchParams();
 	let [token, setToken] = useState('');
 
 	let codeStyle: CSSProperties = {
@@ -29,9 +29,11 @@ function Redirect() {
 				setToken(res.data as string);
 			}
 		})();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	let auth = getAuth();
+	console.log(auth);
 	return (
 		<div>
 			<h1>REDIRECT</h1>

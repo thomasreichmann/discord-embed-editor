@@ -6,7 +6,9 @@ const app = initializeApp(firebaseConfig);
 const functions = getFunctions(app);
 
 // TODO: make this based on the current env (prod || dev)
-connectFunctionsEmulator(functions, 'localhost', 5001);
+if (process.env.NODE_ENV === 'development') {
+	connectFunctionsEmulator(functions, 'localhost', 5001);
+}
 
 // Functions from firebase
 const generateToken = httpsCallable(functions, 'generateToken');
