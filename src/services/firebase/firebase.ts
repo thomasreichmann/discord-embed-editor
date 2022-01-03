@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getFunctions, httpsCallable, connectFunctionsEmulator } from 'firebase/functions';
 import firebaseConfig from './config';
+import { TokenResponse } from '../../services/auth.d';
 
 const app = initializeApp(firebaseConfig);
 const functions = getFunctions(app);
@@ -15,5 +16,5 @@ const generateToken = httpsCallable(functions, 'generateToken');
 
 export async function requestToken(code: string) {
 	let response = await generateToken({ code });
-	return response;
+	return response.data as TokenResponse;
 }

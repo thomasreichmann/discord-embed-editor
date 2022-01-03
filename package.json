@@ -22,7 +22,7 @@
 		"web-vitals": "^1.0.1"
 	},
 	"scripts": {
-		"start": "react-scripts start & firebase emulators:start --only functions & cd functions && tsc --watch",
+		"start": "concurrently --kill-others \"react-scripts start\" \"firebase emulators:start --only functions\" \"cd functions && tsc --watch\"",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
@@ -47,6 +47,7 @@
 		]
 	},
 	"devDependencies": {
-		"babel-plugin-import": "^1.13.3"
+		"babel-plugin-import": "^1.13.3",
+		"concurrently": "^6.5.1"
 	}
 }

@@ -1,9 +1,12 @@
-import { Button } from '@mui/material';
+import { getCurrentUser, useAuth } from '../../services/auth';
 
 function Home() {
+	let auth = useAuth();
+
 	return (
 		<div>
-			<Button href={process.env.REACT_APP_DISCORD_OAUTH_URL}>discord oauth</Button>
+			<h1>HOME</h1>
+			<p>{JSON.stringify(auth.user)}</p>
 		</div>
 	);
 }

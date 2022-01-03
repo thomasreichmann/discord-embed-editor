@@ -1,11 +1,14 @@
-import { useSearchParams } from 'react-router-dom';
-import { getAuth } from 'firebase/auth';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import * as firebase from '../../services/firebase/firebase';
 import { CSSProperties, useEffect, useState } from 'react';
+import { useAuth } from '../../services/auth';
+import { getAuth } from 'firebase/auth';
 
 function Redirect() {
 	let [searchParams] = useSearchParams();
 	let [token, setToken] = useState('');
+	let navigate = useNavigate();
+	let auth = useAuth();
 
 	let codeStyle: CSSProperties = {
 		background: '#222222',
@@ -25,15 +28,16 @@ function Redirect() {
 		// Async function
 		(async () => {
 			if (code) {
-				let res = await firebase.requestToken(code);
-				setToken(res.data as string);
+				let data = await firebase.requestToken(code);
+				setToken(data.access_token);
+				auth.signin(token, () => {
+					// navigate('/', { replace: true });
+				});
 			}
 		})();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	let auth = getAuth();
-	console.log(auth);
 	return (
 		<div>
 			<h1>REDIRECT</h1>
