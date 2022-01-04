@@ -6,7 +6,6 @@ import { TokenResponse } from '../../services/auth.d';
 const app = initializeApp(firebaseConfig);
 const functions = getFunctions(app);
 
-// TODO: make this based on the current env (prod || dev)
 if (process.env.NODE_ENV === 'development') {
 	connectFunctionsEmulator(functions, 'localhost', 5001);
 }
@@ -16,5 +15,5 @@ const generateToken = httpsCallable(functions, 'generateToken');
 
 export async function requestToken(code: string) {
 	let response = await generateToken({ code });
-	return response.data as TokenResponse;
+	return JSON.parse(response.data as string) as TokenResponse;
 }

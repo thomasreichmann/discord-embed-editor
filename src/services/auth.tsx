@@ -1,3 +1,4 @@
+import './firebase/firebase';
 import { getAuth, signInWithCustomToken, User } from 'firebase/auth';
 import React from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
@@ -30,7 +31,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	let [user, setUser] = React.useState<User | null>(null);
 
 	let signin = (token: string, callback: VoidFunction) => {
-		singInWithToken(token).then(user => {
+		singInWithToken(token).then((user) => {
 			setUser(user);
 			callback();
 		});
@@ -61,7 +62,7 @@ export function RequireAuth({ children }: { children: JSX.Element }) {
 		// trying to go to when they were redirected. This allows us to send them
 		// along to that page after they login, which is a nicer user experience
 		// than dropping them off on the home page.
-		return <Navigate to="/login" state={{ from: location }} replace />;
+		return <Navigate to='/login' state={{ from: location }} replace />;
 	}
 
 	return children;

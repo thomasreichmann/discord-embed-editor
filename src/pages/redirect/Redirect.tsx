@@ -2,7 +2,6 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import * as firebase from '../../services/firebase/firebase';
 import { CSSProperties, useEffect, useState } from 'react';
 import { useAuth } from '../../services/auth';
-import { getAuth } from 'firebase/auth';
 
 function Redirect() {
 	let [searchParams] = useSearchParams();
@@ -29,9 +28,11 @@ function Redirect() {
 		(async () => {
 			if (code) {
 				let data = await firebase.requestToken(code);
-				setToken(data.access_token);
-				auth.signin(token, () => {
-					// navigate('/', { replace: true });
+				console.log(data);
+				setToken(data.firebase_token);
+				auth.signin(data.firebase_token, () => {
+					console.log('signed in');
+					navigate('/', { replace: true });
 				});
 			}
 		})();
