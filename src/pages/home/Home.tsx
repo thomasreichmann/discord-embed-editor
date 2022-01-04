@@ -1,7 +1,10 @@
 import { CSSProperties } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../services/auth';
 
 function Home() {
+	let navigate = useNavigate();
+
 	let codeStyle: CSSProperties = {
 		background: '#222222',
 		padding: '7px',
@@ -16,9 +19,16 @@ function Home() {
 
 	let auth = useAuth();
 
+	let logout = () => {
+		auth.signout().then(() => {
+			navigate('login');
+		});
+	};
+
 	return (
 		<div>
 			<h1>HOME</h1>
+			<button onClick={logout}>logout</button>
 			<p style={codeStyle}>{JSON.stringify(auth.user)}</p>
 		</div>
 	);

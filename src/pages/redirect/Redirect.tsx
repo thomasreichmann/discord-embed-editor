@@ -30,7 +30,16 @@ function Redirect() {
 				let data = await firebase.requestToken(code);
 				console.log(data);
 				setToken(data.firebase_token);
-				auth.signin(data.firebase_token, () => {
+
+				localStorage.setItem('firebase_token', data.firebase_token);
+				localStorage.setItem('discord_token', data.access_token);
+				localStorage.setItem('refresh_token', data.refresh_token);
+
+				let d = new Date();
+				let expire_at = new Date(d.getTime() + data.expires_in * 1000).getTime().toString();
+				localStorage.setItem('expire_at', expire_at);
+
+				auth.signin(data.firebase_token).then(() => {
 					console.log('signed in');
 					navigate('/', { replace: true });
 				});

@@ -29,7 +29,7 @@ export const generateToken = functions.https.onCall(async (data, context) => {
 			},
 		});
 
-		let body: any = await response.json();
+		let body: TokenResponse = await response.json();
 
 		// TODO: handle error if this returns null, discord user should be nullabe
 		body.discord_user = await getDiscordUser(body.access_token);
