@@ -29,11 +29,15 @@ export const generateToken = functions.https.onCall(async (data, context) => {
 			},
 		});
 
-		let body: TokenResponse = await response.json();
+		let body: any = await response.json();
 
 		// TODO: handle error if this returns null, discord user should be nullabe
 		body.discord_user = await getDiscordUser(body.access_token);
-		body.firebase_token = await admin.auth(app).createCustomToken(body.discord_user.id || '1');
+		if (body.discord_user.id) {
+			body.firebase_token = await admin.auth(app).createCustomToken(body.discord_user.id);
+		} else {
+			body.firebase_token = '';
+		}
 
 		return `${JSON.stringify(body)}` || '';
 	} catch (err) {
@@ -45,7 +49,7 @@ export const generateToken = functions.https.onCall(async (data, context) => {
 async function getDiscordUser(token: string) {
 	let res = await fetch('https://discord.com/api/users/@me', {
 		headers: {
-			Authorizations: `Bearer ${token}`,
+			Authorization: `Bearer ${token}`,
 		},
 	});
 
