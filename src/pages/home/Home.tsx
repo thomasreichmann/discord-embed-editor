@@ -25,6 +25,8 @@ function Home() {
 		});
 	};
 
+	// TODO: Attempt to get specific user info from front-end with the new auth system
+	// TODO: Attempt to get specific discord info to front-end
 	return (
 		<div>
 			<h1>HOME</h1>
