@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import fetch from 'node-fetch';
 import * as querystring from 'qs';
+import { TokenResponse } from './discord';
 
 let app = admin.initializeApp({
 	credential: admin.credential.cert(functions.config().service_account),
@@ -28,16 +29,11 @@ export const generateToken = functions.https.onCall(async (data, context) => {
 			},
 		});
 
-		let body: any = await response.json();
+		let body: TokenResponse = await response.json();
 
-		let discordUser = await getDiscordUser(body.access_token);
-		console.log(discordUser);
-		let firebaseToken = await admin.auth(app).createCustomToken('123123123123');
-
-		// console.log(firebaseToken);
-
-		body.discordUser = discordUser;
-		body.firebaseToken = firebaseToken;
+		// TODO: handle error if this returns null, discord user should be nullabe
+		body.discord_user = await getDiscordUser(body.access_token);
+		body.firebase_token = await admin.auth(app).createCustomToken(body.discord_user.id);
 
 		return `${JSON.stringify(body)}` || '';
 	} catch (err) {
@@ -47,13 +43,9 @@ export const generateToken = functions.https.onCall(async (data, context) => {
 });
 
 async function getDiscordUser(token: string) {
-	console.log('rodando discord user');
-	console.log(token);
-	// TODO: this is returning a 401, we need to fix this and find a way to authneticate properly,
-	// the token is correct here and it works in postman
 	let res = await fetch('https://discord.com/api/users/@me', {
 		headers: {
-			Authentication: `Bearer ${token}`,
+			Authorizations: `Bearer ${token}`,
 		},
 	});
 
