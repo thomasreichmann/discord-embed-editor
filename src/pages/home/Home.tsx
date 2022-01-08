@@ -1,21 +1,19 @@
-import { CSSProperties } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../services/auth';
+import { getGuilds, Guild } from '../../services/firebase/firebase';
 
 function Home() {
 	let navigate = useNavigate();
-
-	let codeStyle: CSSProperties = {
-		background: '#222222',
-		padding: '7px',
-		fontSize: '36px',
-		color: 'grey',
-		fontWeight: 400,
-		borderRadius: '15px',
-		display: 'flex',
-		overflowWrap: 'anywhere',
-		width: '1100px',
-	};
+	let [guilds, setGuilds] = useState<Guild[] | undefined>(undefined);
+	useEffect(() => {
+		(async () => {
+			let token = localStorage.getItem('discord_token') || '';
+			let res = await getGuilds(token);
+			console.log(res);
+			setGuilds(res);
+		})();
+	}, []);
 
 	let auth = useAuth();
 
@@ -25,13 +23,18 @@ function Home() {
 		});
 	};
 
-	// TODO: Attempt to get specific user info from front-end with the new auth system
-	// TODO: Attempt to get specific discord info to front-end
 	return (
 		<div>
 			<h1>HOME</h1>
 			<button onClick={logout}>logout</button>
-			<p style={codeStyle}>{JSON.stringify(auth.user)}</p>
+			<ul>
+				<h2>List of Guilds</h2>
+				{guilds?.map((guild) => {
+					return <li>{guild.name}</li>;
+				})}
+			</ul>
+			{/* <p style={codeStyle}>{JSON.stringify(guilds)}</p> */}
+			{/* <p style={codeStyle}>{JSON.stringify(auth.user)}</p> */}
 		</div>
 	);
 }

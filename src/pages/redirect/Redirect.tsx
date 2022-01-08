@@ -9,6 +9,9 @@ function Redirect() {
 	let navigate = useNavigate();
 	let auth = useAuth();
 
+	// TODO: clean up this page and make it just a loading intermidiate between the oauth and redirect to home
+	// maybe get some cool spinners and info text on what is loading at the moment
+
 	let codeStyle: CSSProperties = {
 		background: '#222222',
 		padding: '7px',

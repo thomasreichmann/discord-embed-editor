@@ -2,11 +2,20 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import fetch from 'node-fetch';
 import * as querystring from 'qs';
-import { TokenResponse } from './discord';
+import { DiscordUser, TokenResponse } from './discord';
+import { getUserGuilds } from './getUserGuilds';
+
+// TODO: remove unused packages from package.json (like axios)
+// TODO: better research the possibility of using axios instead of node-fetch
 
 let app = admin.initializeApp({
 	credential: admin.credential.cert(functions.config().service_account),
 });
+
+// TODO: research a better solution to using two different names to define funcitons in external files
+// TODO: create our bot and research how to get his user data to here
+// TODO: create a function to return the overlaping guilds between the user and our bot
+export const getGuilds = functions.https.onCall(getUserGuilds);
 
 export const generateToken = functions.https.onCall(async (data, context) => {
 	const discord = functions.config().discord;
@@ -46,6 +55,7 @@ export const generateToken = functions.https.onCall(async (data, context) => {
 	}
 });
 
+// TODO: create a seperate file and folder for all discord related functions and declarations
 async function getDiscordUser(token: string) {
 	let res = await fetch('https://discord.com/api/users/@me', {
 		headers: {
@@ -54,19 +64,4 @@ async function getDiscordUser(token: string) {
 	});
 
 	return (await res.json()) as DiscordUser;
-}
-
-interface DiscordUser {
-	id: string;
-	username: string;
-	avatar: string;
-	discriminator: string;
-	public_flags: number;
-	flags: number;
-	banner: null;
-	banner_color: null;
-	accent_color: null;
-	locale: string;
-	mfa_enabled: boolean;
-	premium_type: number;
 }
