@@ -9,6 +9,7 @@ import React from 'react';
 import { AuthProvider, RequireAuth } from './services/auth';
 
 function App() {
+	// TODO: crete seperate css files for all of the pages and remove any in code styles
 	const theme = createTheme({
 		palette: {
 			mode: 'dark',
@@ -18,18 +19,18 @@ function App() {
 	return (
 		<ThemeProvider theme={theme}>
 			<AuthProvider>
-				<div className="App">
+				<div className='App'>
 					<Routes>
 						<Route
-							path="/"
+							path='/'
 							element={
 								<RequireAuth>
 									<Home />
 								</RequireAuth>
 							}
 						/>
-						<Route path="login" element={<Login />} />
-						<Route path="redirect" element={<Redirect />} />
+						<Route path='login' element={<Login />} />
+						<Route path='redirect' element={<Redirect />} />
 					</Routes>
 				</div>
 			</AuthProvider>
