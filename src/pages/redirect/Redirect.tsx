@@ -1,3 +1,4 @@
+import './Redirect.scss';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import * as firebase from '../../services/firebase/firebase';
 import { CSSProperties, useEffect, useState } from 'react';

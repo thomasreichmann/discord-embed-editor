@@ -1,3 +1,4 @@
+import './Login.scss';
 import { Button } from '@mui/material';
 
 function Login() {
