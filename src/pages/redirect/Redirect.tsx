@@ -10,6 +10,9 @@ function Redirect() {
 	let navigate = useNavigate();
 	let auth = useAuth();
 
+	// TODO: research the possibility of using a modal instead of a redirect for this
+	// similar to how mee6 does it
+
 	// TODO: clean up this page and make it just a loading intermidiate between the oauth and redirect to home
 	// maybe get some cool spinners and info text on what is loading at the moment
 
