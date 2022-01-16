@@ -24,6 +24,7 @@
 	},
 	"scripts": {
 		"start": "concurrently --kill-others \"react-scripts start\" \"firebase emulators:start --only functions --inspect-functions\" \"cd functions && tsc --watch\"",
+		"start:web": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
