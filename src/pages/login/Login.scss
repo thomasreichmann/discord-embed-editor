@@ -1,0 +1,66 @@
+.mainWrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	max-width: 1240px;
+	height: 724px;
+	width: 100%;
+
+	margin: 0px auto;
+	padding: 0px 40px;
+}
+
+.lightDesc {
+	width: 360px;
+	margin-top: 32px;
+	max-width: 100%;
+
+	font-style: normal;
+	font-size: 16px;
+	line-height: 24px;
+	color: #9b9d9f;
+}
+
+.boldHeader {
+	color: white;
+
+	font-style: normal;
+	font-weight: bold;
+	font-size: 56px;
+	line-height: 64px;
+}
+
+#welcomeHeader {
+	width: 460px;
+	max-width: 100%;
+	margin-bottom: 0;
+}
+
+#addDiscordBtn {
+	margin-top: 20px;
+	max-width: 180px;
+}
+
+.infoBand {
+	color: white;
+	height: 140px;
+	background-color: #1f2129;
+	margin-bottom: 25px;
+
+	div {
+		height: 100%;
+
+		display: flex;
+		align-items: center;
+
+		margin-left: 20%;
+		h1 {
+			margin: 0;
+
+			font-size: 26px;
+			line-height: 28px;
+			font-weight: 700;
+		}
+	}
+}
