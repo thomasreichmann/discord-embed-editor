@@ -1,0 +1,29 @@
+.footer {
+	padding: 25px 0;
+
+	#contentWrapper {
+		display: flex;
+		justify-content: space-around;
+
+		div {
+			p {
+				padding: 5px;
+				margin: 0;
+				font-size: 14px;
+			}
+
+			.title {
+				color: #f2f4fb;
+				font-size: 16px;
+			}
+		}
+	}
+
+	a:hover {
+		color: #42a5f5;
+	}
+}
+
+#reactEmoji {
+	color: #61dbfb;
+}

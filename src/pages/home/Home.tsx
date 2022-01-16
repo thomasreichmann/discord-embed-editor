@@ -1,3 +1,4 @@
+import './Home.scss';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../services/auth';
@@ -29,7 +30,7 @@ function Home() {
 			<button onClick={logout}>logout</button>
 			<ul>
 				<h2>List of Guilds</h2>
-				{guilds?.map((guild) => {
+				{guilds?.map(guild => {
 					return <li>{guild.name}</li>;
 				})}
 			</ul>

@@ -3,6 +3,8 @@ import { getAuth, signInWithCustomToken, User } from 'firebase/auth';
 import React from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
 
+// TODO: Update user profile on login with discord profile pic, name, etc, using the updateProfile
+// from 'firebase/auth' https://firebase.google.com/docs/auth/web/manage-users#update_a_users_profile
 async function singInWithToken(token: string): Promise<User> {
 	const auth = getAuth();
 	let userCredential = await signInWithCustomToken(auth, token);
@@ -31,7 +33,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	let [user, setUser] = React.useState<User | null>(null);
 
 	let signin = async (token: string) => {
-		await singInWithToken(token).then((user) => {
+		await singInWithToken(token).then(user => {
 			setUser(user);
 			console.log('set user');
 		});
@@ -66,15 +68,15 @@ export function RequireAuth({ children }: { children: JSX.Element }) {
 	let token = localStorage.getItem('firebase_token');
 	if (!auth.user) {
 		if (token) {
-			auth.signin(token).catch((err) => {
-				return <Navigate to='/login' state={{ from: location }} replace />;
+			auth.signin(token).catch(err => {
+				return <Navigate to="/login" state={{ from: location }} replace />;
 			});
 		} else {
 			// Redirect them to the /login page, but save the current location they were
 			// trying to go to when they were redirected. This allows us to send them
 			// along to that page after they login, which is a nicer user experience
 			// than dropping them off on the home page.
-			return <Navigate to='/login' state={{ from: location }} replace />;
+			return <Navigate to="/login" state={{ from: location }} replace />;
 		}
 	}
 
