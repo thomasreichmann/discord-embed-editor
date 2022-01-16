@@ -4,9 +4,16 @@ import './Header.scss';
 
 const MainButton = styled(Button)<ButtonProps>({
 	color: '#9b9d9f',
+	textTransform: 'none',
+	'&:hover': {
+		color: '#F2F4FB',
+	},
 });
 
 export default function Header() {
+	// TODO: change login button to user profile menu with user avatar, etc, when logged in
+
+	// TODO: change main buttons to just a tags
 	return (
 		<header>
 			<div className="wrapper">

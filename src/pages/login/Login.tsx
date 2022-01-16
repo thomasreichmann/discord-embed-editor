@@ -4,7 +4,9 @@ import { Button } from '@mui/material';
 import Footer from '../../components/footer/Footer';
 
 function Login() {
-	// TODO: re desing login page to look more like a landing page, maybe take inspiration from mee6 and such
+	// TODO: fetch data from the bot like profile picture, current server count, etc, to display here
+
+	// TODO: add invite link to 'add to discord' button
 	return (
 		<div>
 			<Header />
@@ -12,10 +14,7 @@ function Login() {
 				<h1 className="boldHeader" id="welcomeHeader">
 					Create custom embed messages
 				</h1>
-				<div className="lightDesc">
-					Configure moderação, níveis, alertas da Twitch, e muito mais com nossa central de controles super
-					simplificada!
-				</div>
+				<div className="lightDesc">Save custom message embeds and manage your them from a single dashboard!</div>
 				<Button id="addDiscordBtn" variant="contained" size="large">
 					Add to discord
 				</Button>
