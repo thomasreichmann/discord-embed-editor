@@ -5,7 +5,6 @@ import * as querystring from 'qs';
 import { DiscordUser, TokenResponse } from './discord';
 import { getUserGuilds } from './getUserGuilds';
 
-// TODO: remove unused packages from package.json (like axios)
 // TODO: better research the possibility of using axios instead of node-fetch
 
 let app = admin.initializeApp({
