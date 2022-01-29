@@ -12,6 +12,7 @@ let app = admin.initializeApp({
 	credential: admin.credential.cert(functions.config().service_account),
 });
 
+// TODO: when creating a user add more info to it like discord name and profile picture
 // TODO: research a better solution to using two different names to define funcitons in external files
 // TODO: create our bot and research how to get his user data to here
 // TODO: create a function to return the overlaping guilds between the user and our bot
