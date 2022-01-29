@@ -21,7 +21,15 @@ export async function requestToken(code: string) {
 
 export async function getGuilds(token: string) {
 	let response = await getUserGuilds({ discord_token: token });
-	return response.data as Guild[];
+
+	// If we can cast the res to a Guild[], we can continue to assing the guilds
+	// Else we recived an error and need to handle
+	if ((response.data as Guild[]).map) {
+		return response.data as Guild[];
+	} else {
+		// TODO: Maybe create a custom error for this
+		throw response;
+	}
 }
 
 // TODO: export this type to a seperate decleration file
